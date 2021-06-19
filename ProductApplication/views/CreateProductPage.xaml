@@ -1,0 +1,67 @@
+﻿<Page x:Class="ProductApplication.views.CreateProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProductApplication.views"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="800"
+      Title="CreateProductPage">
+    <Grid>
+        <ScrollViewer>
+        <StackPanel x:Name="Page" Margin="40">
+                <DockPanel>
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <TextBlock Foreground="{StaticResource OptinalColor}" FontFamily="Arial" FontSize="25">Имя</TextBlock>
+                    <TextBox BorderBrush="{StaticResource AttentionColor}" Foreground="{StaticResource AttentionColor}" Text="{Binding Name}"  VerticalContentAlignment="Center" FontSize="15" Margin="10,0,0,0" Width="300"></TextBox>
+            </StackPanel>
+                    <Button DockPanel.Dock="Right" Background="Transparent" BorderBrush="{StaticResource OptinalColor}" Foreground="{StaticResource OptinalColor}" Click="BackClick"  HorizontalAlignment="Right" Width="120">Назад</Button>
+                </DockPanel>
+                <Button Click="AddImage_Click" Background="Transparent" BorderBrush="Transparent" Margin="15,30,0,0" HorizontalAlignment="Left" Width="140" Height="140" Padding="0">
+                <Image Stretch="Fill" Source="{Binding Image, TargetNullValue={StaticResource Placeholder}}" />
+            </Button>
+            <StackPanel Margin="0,30,0,0" Orientation="Vertical">
+                <TextBlock Foreground="{StaticResource OptinalColor}" FontFamily="Arial" FontSize="25">Комментарий</TextBlock>
+                    <TextBox BorderBrush="{StaticResource AttentionColor}" Foreground="{StaticResource AttentionColor}" Height="60" HorizontalAlignment="Left" AcceptsReturn="True" AcceptsTab="True"  VerticalContentAlignment="Top" FontSize="15" Margin="0,10,0,0" Width="360" Text="{Binding Comment}"></TextBox>
+            </StackPanel>
+            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                <TextBlock Foreground="{StaticResource OptinalColor}" FontFamily="Arial" FontSize="25">Дата добавления</TextBlock>
+                    <TextBox BorderBrush="{StaticResource AttentionColor}" Foreground="{StaticResource AttentionColor}" IsEnabled="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" Margin="10,0,0,0" Width="100" Text="{Binding DateAdd,StringFormat={},UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            <StackPanel Margin="0,30,0,0">
+                <TextBlock Foreground="{StaticResource OptinalColor}" FontFamily="Arial" FontSize="25">Единица измерния</TextBlock>
+                    <ComboBox Margin="0,5,0,0"  ItemsSource="{Binding TypeUnits}" SelectedValue="{Binding Path=TypeUnit, Mode=TwoWay}" BorderThickness="1" BorderBrush="{StaticResource AttentionColor}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="0,30,0,0">
+                    <TextBlock Foreground="{StaticResource OptinalColor}" FontFamily="Arial" FontSize="25">Страны</TextBlock>
+                    <ListView x:Name="ListCountry" ItemsSource="{Binding CountryProducts,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox BorderThickness="1" BorderBrush="{StaticResource AttentionColor}" Width="200" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.Countrys}" SelectedValue="{Binding Country}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <Button Background="Transparent" BorderBrush="{StaticResource OptinalColor}" Foreground="{StaticResource OptinalColor}" Margin="20,0,0,0" Width="120">
+                                        Удалить
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Background="Transparent" BorderBrush="{StaticResource OptinalColor}" Foreground="{StaticResource OptinalColor}" Click="AddCountry" Margin="0,20,0,0" HorizontalAlignment="Left" Width="120">Добавить</Button>
+                    <Button Click="SaveChanges" Background="Transparent" BorderBrush="{StaticResource OptinalColor}" Foreground="{StaticResource OptinalColor}" Margin="0,20,0,0" HorizontalAlignment="Right" Width="120">Сохранить</Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

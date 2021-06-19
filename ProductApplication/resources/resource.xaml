@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="MainColor" Color="#FF9457"></SolidColorBrush>
+    <SolidColorBrush x:Key="OptinalColor" Color="#FA823C"></SolidColorBrush>
+    <SolidColorBrush x:Key="AttentionColor" Color="#AD4407"></SolidColorBrush>
+    <BitmapImage x:Key="Logo" UriSource="logo.jpg" ></BitmapImage>
+    <BitmapImage x:Key="Placeholder" UriSource="140x140.png" />
+</ResourceDictionary>
