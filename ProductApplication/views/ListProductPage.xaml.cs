@@ -96,7 +96,10 @@ namespace ProductApplication.views
 
         private void Refresh(object sender, RoutedEventArgs e)
         {
-            Context.Refresh();
+            l.IsChecked = false;
+            sht.IsChecked = false;
+            kg.IsChecked = false;
+            ThisMounth.IsChecked = false;
         }
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -104,14 +107,27 @@ namespace ProductApplication.views
             x.Text = string.Empty;
             x.GotFocus -= TextBox_GotFocus;
         }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Context.Search();
-        }
-
+     
         private void AddProduct(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new CreateProductPage(new Product(),App.dbContext.Users.Find(Context.Id)));
+        }
+
+        private void ThisMounth_Checked(object sender, RoutedEventArgs e)
+        {
+            Context.ThisMounth = true;
+            Context.Sort();
+        }
+
+        private void ThisMounth_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Context.ThisMounth = false;
+            Context.Sort();
+        }
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            Context.Sort();
         }
     }
 }

@@ -35,6 +35,7 @@ namespace ProductApplication.viewModels
         public bool Sht {get; set;}
         public bool L {get; set;}
         
+        public bool ThisMounth { get; set; }
         public int AllCount { get=>allcount; 
             set 
             {
@@ -60,6 +61,14 @@ namespace ProductApplication.viewModels
 
         public void Sort()
         {
+            if (SearchTerm != "" && SearchTerm != null)
+            {
+                FilterList = AllList.Where(x => x.Name.ToLower().Contains(SearchTerm.ToLower()) || x.Comment.ToLower().Contains(SearchTerm.ToLower())).ToList();
+            }if(SearchTerm=="" || SearchTerm == null)
+            {
+                FilterList = AllList;
+            }
+
             if (L && !Sht && !Kg)
             {
                 FilterList = FilterList.Where(x => x.TypeUnit.Name == "л").ToList();
@@ -82,28 +91,21 @@ namespace ProductApplication.viewModels
             }
             if (Kg && Sht && !L)
             {
-                FilterList=FilterList.Where(x => x.TypeUnit.Name == "кг" || x.TypeUnit.Name == "шт").ToList();
+                FilterList= FilterList.Where(x => x.TypeUnit.Name == "кг" || x.TypeUnit.Name == "шт").ToList();
             }
             if (L && Sht && Kg)
             {
-                FilterList = AllList;
+                FilterList = FilterList.Where(x => x.TypeUnit.Name == "кг" || x.TypeUnit.Name == "шт" || x.TypeUnit.Name == "л").ToList();
+            }
+            if (ThisMounth)
+            {
+                FilterList = FilterList.Where(x => Convert.ToDateTime(x.DataAdd).Month == DateTime.Now.Month).ToList();
             }
             FilterCount = FilterList.Count;
 
         }
 
-        public void Search()
-        {
-            if (SearchTerm != "" && SearchTerm != null)
-            {
-                FilterList = AllList.Where(x => x.Name.Contains(SearchTerm) || x.Comment.Contains(SearchTerm)).ToList();
-                FilterCount = FilterList.Count;
-            }
-            if (SearchTerm == "")
-            {
-                FilterList = AllList;
-            }
-        }
+       
 
         private void OnPropertyRaised(string propertyname)
         {
@@ -117,11 +119,12 @@ namespace ProductApplication.viewModels
         { 
           AllList = App.dbContext.Products.Where(x => x.UserId == Id).ToList();
           FilterList = AllList;
-          L = false;
+            L = false;
           Sht = false;
           Kg = false;
             AllCount = AllList.Count;
            FilterCount = FilterList.Count;
+            
         }
 
         public void Delete(Product product)

@@ -13,7 +13,7 @@
             <DockPanel>
             <StackPanel DockPanel.Dock="Left" Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" FontSize="30" Foreground="{StaticResource OptinalColor}" Text="Поиск"></TextBlock>
-                <TextBox GotFocus="TextBox_GotFocus" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" Foreground="{StaticResource AttentionColor}" Width="350" BorderBrush="{StaticResource MainColor}" FontSize="18" Margin="10,10,0,0" Text="{Binding SearchTerm, TargetNullValue=Введите название или комментарий,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox GotFocus="TextBox_GotFocus" KeyUp="TextBox_KeyUp" VerticalAlignment="Center" Foreground="{StaticResource AttentionColor}" Width="350" BorderBrush="{StaticResource MainColor}" FontSize="18" Margin="10,10,0,0" Text="{Binding SearchTerm, TargetNullValue=Введите название или комментарий,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
                 <Button DockPanel.Dock="Right" Height="30" Width="100" Click="AddProduct" Margin="40,0,0,0" BorderBrush="{StaticResource OptinalColor}" FontSize="15" Padding="4" Foreground="{StaticResource OptinalColor}" Background="Transparent">Добавить</Button>
             </DockPanel>
@@ -22,7 +22,8 @@
                 <CheckBox x:Name="kg" VerticalContentAlignment="Top" FontSize="15" Content="кг" Foreground="{StaticResource OptinalColor}" Margin="80,0,0,0" VerticalAlignment="Center" Checked="kg_Checked" Unchecked="kg_Unchecked" />
                 <CheckBox x:Name="sht" VerticalContentAlignment="Top"  FontSize="15"  Content="шт" Foreground="{StaticResource OptinalColor}" Margin="15,0,0,0"  VerticalAlignment="Center" Checked="sht_Checked" Unchecked="sht_Unchecked"/>
                 <CheckBox x:Name="l" VerticalContentAlignment="Top" Content="л" FontSize="15" Foreground="{StaticResource OptinalColor}" Margin="15,0,0,0" VerticalAlignment="Center" Checked="l_Checked" Unchecked="l_Unchecked"/>
-                <Button Click="Refresh" Margin="40,0,0,0" BorderBrush="{StaticResource OptinalColor}" FontSize="15" Padding="4" Foreground="{StaticResource OptinalColor}" Background="Transparent">Сброс</Button>
+                <CheckBox x:Name="ThisMounth" VerticalContentAlignment="Top" Content="Этот месяц" FontSize="15" Foreground="{StaticResource OptinalColor}" Margin="15,0,0,0" VerticalAlignment="Center" Checked="ThisMounth_Checked" Unchecked="ThisMounth_Unchecked"/>
+                <Button Click="Refresh" Margin="40,0,0,0" BorderBrush="{StaticResource OptinalColor}" FontSize="15" Padding="4" Foreground="{StaticResource OptinalColor}"  Background="Transparent">Сброс</Button>
             </StackPanel>
 
 
@@ -32,7 +33,7 @@
                     <DataGridTemplateColumn Header="Изображение" Width="100" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Height="75" Width="100" Source="{Binding Photo}"/>
+                                <Image Height="75" Width="100" Stretch="Fill" Source="{Binding Photo,TargetNullValue={StaticResource Placeholder}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
